@@ -26,8 +26,9 @@ public class BubblePullSystem : MonoBehaviour
 
     void OnPull(InputValue value)
     {
+        AudioManager.Instance.PlaySound("PullBubble");
         isPulling = value.isPressed;
-
+        
         // Si se suelta el botón, liberar todas las burbujas
         if (!isPulling)
         {

@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAlive) { return; }
         Instantiate(bullet, gun.position, transform.rotation);
+        AudioManager.Instance.PlaySound("Shoot");
     }
     
     void OnMove(InputValue value)
@@ -109,11 +110,18 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("isClimbing", playerHasVerticalSpeed);
     }
 
+    void Bounce()
+    {
+        if(myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Bouncing")))
+            AudioManager.Instance.PlaySound("Bounce");
+    }
+
     void Die()
     {
         if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
         {
             isAlive = false;
+            AudioManager.Instance.PlaySound("Die");
             myAnimator.SetTrigger("Dying");
             myRigidbody.velocity = deathKick;
             FindObjectOfType<GameSession>().ProcessPlayerDeath();

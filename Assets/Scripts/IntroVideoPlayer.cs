@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class IntroVideoPlayer : MonoBehaviour
 {
     [Header("Video Settings")]
-    [SerializeField] private string videoUrl = ""; // URL del video
-    [SerializeField] private float skipTime = 7f; // Duración del video
+    [SerializeField] private VideoClip introVideo; // Video local para Windows
+    [SerializeField] private float skipTime = 7f;
 
     [Header("References")]
     [SerializeField] private RawImage videoScreen;
@@ -18,13 +18,20 @@ public class IntroVideoPlayer : MonoBehaviour
 
     void Start()
     {
+        // Si estamos en WebGL, saltamos directamente al menú
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            SkipToMainMenu();
+            return;
+        }
+
         // Ocultar el menú principal inicialmente
         if (mainMenuUI != null)
         {
             mainMenuUI.SetActive(false);
         }
 
-        // Configurar el VideoPlayer
+        // Configurar el VideoPlayer para Windows
         SetupVideoPlayer();
     }
 
@@ -35,37 +42,32 @@ public class IntroVideoPlayer : MonoBehaviour
             videoPlayer = gameObject.AddComponent<VideoPlayer>();
         }
 
-        // Configurar para reproducir desde URL
-        videoPlayer.source = VideoSource.Url;
-        videoPlayer.url = videoUrl;
+        // Configurar para reproducir el clip local
+        videoPlayer.source = VideoSource.VideoClip;
+        videoPlayer.clip = introVideo;
         videoPlayer.isLooping = false;
         videoPlayer.playOnAwake = true;
         videoPlayer.renderMode = VideoRenderMode.RenderTexture;
 
-        // Si tenemos una RawImage, configurar para mostrar el video ahí
         if (videoScreen != null)
         {
-            // Crear una RenderTexture del tamaño de la pantalla
             RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
             videoPlayer.targetTexture = renderTexture;
             videoScreen.texture = renderTexture;
         }
 
-        // Eventos para manejar errores y finalización
         videoPlayer.errorReceived += HandleVideoError;
         videoPlayer.loopPointReached += HandleVideoComplete;
-
-        // Comenzar reproducción
         videoPlayer.Prepare();
     }
 
     void Update()
     {
-        if (!hasFinished)
+        if (!hasFinished && Application.platform != RuntimePlatform.WebGLPlayer)
         {
             currentTime += Time.deltaTime;
 
-            // Si se alcanza el tiempo de skip o hay algún input
+            // Permitir saltar el video con cualquier tecla
             if (currentTime >= skipTime || Input.anyKeyDown)
             {
                 FinishVideo();
@@ -90,7 +92,6 @@ public class IntroVideoPlayer : MonoBehaviour
 
         hasFinished = true;
 
-        // Detener y limpiar el video
         if (videoPlayer != null)
         {
             videoPlayer.Stop();
@@ -100,13 +101,31 @@ public class IntroVideoPlayer : MonoBehaviour
             }
         }
 
-        // Ocultar la pantalla de video
         if (videoScreen != null)
         {
             videoScreen.gameObject.SetActive(false);
         }
 
-        // Mostrar el menú principal
+        ShowMainMenu();
+    }
+
+    void SkipToMainMenu()
+    {
+        // Deshabilitar componentes innecesarios en WebGL
+        if (videoScreen != null)
+        {
+            videoScreen.gameObject.SetActive(false);
+        }
+        if (videoPlayer != null)
+        {
+            videoPlayer.enabled = false;
+        }
+
+        ShowMainMenu();
+    }
+
+    void ShowMainMenu()
+    {
         if (mainMenuUI != null)
         {
             mainMenuUI.SetActive(true);

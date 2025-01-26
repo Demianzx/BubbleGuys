@@ -111,6 +111,7 @@ public class BubbleHunterMovement : MonoBehaviour
         // Shoot bullet
         GameObject newBullet = Instantiate(bullet, gun.position, transform.rotation);
         newBullet.GetComponent<BubbleHunterBullet>().SetDirection(shootDirection);
+        AudioManager.Instance.PlaySound("Shoot");
         lastShootTime = Time.time;
     }
 
@@ -125,6 +126,7 @@ public class BubbleHunterMovement : MonoBehaviour
     void Die()
     {
         isAlive = false;
+        AudioManager.Instance.PlaySound("Die");
         myAnimator.SetTrigger("isDying");
         myRigidbody.velocity = Vector2.zero;
         FindObjectOfType<GameSession>().ProcessPlayerDeath();

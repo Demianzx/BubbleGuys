@@ -369,6 +369,7 @@ public class BubbleController : MonoBehaviour
         }
 
         // Esperar un momento antes de finalizar
+        AudioManager.Instance.PlaySound("BubbleDie");
         yield return new WaitForSeconds(0.1f);
 
         FinishDeath();
@@ -376,6 +377,7 @@ public class BubbleController : MonoBehaviour
 
     private void FinishDeath()
     {
+        
         StartCoroutine(DelayedDestroy());
     }
 

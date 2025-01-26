@@ -11,7 +11,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Vector2 deathKick = new Vector2 (10f, 10f);
     [SerializeField] GameObject bullet;
     [SerializeField] Transform gun;
-    
+
+    [Header("References")]
+    [SerializeField] Transform visualsTransform;
+
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
     Animator myAnimator;
@@ -27,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
+
+        if (visualsTransform != null)
+        {
+            myAnimator = visualsTransform.GetComponent<Animator>();
+        }
+
         gravityScaleAtStart = myRigidbody.gravityScale;
     }
 

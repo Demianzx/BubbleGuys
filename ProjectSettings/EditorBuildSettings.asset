@@ -6,13 +6,46 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Levels/MainMenu.unity
+    guid: 7731986cbd1a7b64cbaf1d1c556b6667
+  - enabled: 1
     path: Assets/Levels/Level 1.unity
     guid: 2ef369e80df6fe342b022cbfbc158020
   - enabled: 1
     path: Assets/Levels/Level 2.unity
-    guid: e134fd71dfbdf4a40985cb2e84dd82ad
+    guid: 8f0ef9096fbca4941a1cbef98fb4bcc4
   - enabled: 1
     path: Assets/Levels/Level 3.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: d717926271560f848ad2579a9c4ef4c5
+  - enabled: 1
+    path: Assets/Levels/Level 4.unity
+    guid: 417859e2905210243ac8650fddcea7a8
+  - enabled: 1
+    path: Assets/Levels/Level 5.unity
+    guid: b390e8885904ccd44878af6073509204
+  - enabled: 1
+    path: Assets/Levels/Level 6.unity
+    guid: a4b34575f9c808b4c8e1e28be22a76ba
+  - enabled: 1
+    path: Assets/Levels/Level 7.unity
+    guid: 39657f6f9e1f36d448bfc73eba5efe39
+  - enabled: 1
+    path: Assets/Levels/Level 8.unity
+    guid: d8c0de04960a3b140879786e9be50006
+  - enabled: 1
+    path: Assets/Levels/Level 9.unity
+    guid: 02d45ccd237508244902660e8382e85a
+  - enabled: 1
+    path: Assets/Levels/Level 10.unity
+    guid: e134fd71dfbdf4a40985cb2e84dd82ad
+  - enabled: 1
+    path: Assets/Levels/Level 11.unity
+    guid: f8fe876d9917abe408bf7d638781dceb
+  - enabled: 1
+    path: Assets/Levels/Level 12.unity
+    guid: 0d96048693e952d4da83abf7de584ed1
+  - enabled: 1
+    path: Assets/Levels/Level 13.unity
+    guid: 8bab7d6b7bf3043488e1a1f4266df0bc
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f005394ccca97f0499a18ffb1ec3bc41, type: 2}
